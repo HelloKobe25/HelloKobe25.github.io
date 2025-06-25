@@ -12,14 +12,22 @@
     padding: 0;
     }
     body {
-      background-image: url("背景.jpg");   /* 画像ファイル名やパスを指定 */
       background-size: cover;            /* ウィンドウに画像をフィット */
       background-position: center 20%;       /* 画像を中央に配置 */
       background-repeat: no-repeat;      /* 繰り返しなし */
       background-attachment: fixed; /* スクロール時に背景を固定 */
-    }
+    } 
+    /*body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background: url('背景メイン.jpg') center/cover no-repeat;
+      opacity: 1;
+      transition: opacity 0.7s;
+      pointer-events: none;
+    }*/
   </style>
-
 </head>
 
 <body>
@@ -36,6 +44,7 @@
       width: 80%; /* 幅を90%に設定 */
       height: auto; /* 高さを100%に設定 */
       margin-top: 32px;
+      transition: opacity 0.7s;
     }
   </style>
   <div id ="backpanel">
@@ -57,9 +66,9 @@
       </a>
     </div>
 
-<!--活動内容のスタイルとスクリプト-->
+<!--ボタンのスタイル-->
     <style>
-      #tw-panel-btn {
+      #ac-panel-btn, #ev-panel-btn {
         background: #ccc;
         color: #333;
         padding: 12px 12px;
@@ -69,20 +78,30 @@
         font-size: 16px;
         transition: background 0.3s;
       }
-      #tw-panel-btn:hover {
+      #ac-panel-btn:hover , #ev-panel-btn:hover {
         background: #4caf50;
         color: #fff;
       }
 
-      #tw-panel {
-        display: none; 
+      #ac-panel , #ev-panel { 
+        display : none; /* 初期状態では非表示 */
         border: 1px solid #ccc; 
         padding: 16px;
         background: #e0ffe0;
         border-radius: 4px;
+        opacity :0;
+        transition : opacity 0.5s;
+        pointer-events: none;
       }
 
-      #tw-close-btn{
+      #ac-panel.show,
+      #ev-panel.show {
+        transition : opacity 0.5s;
+        opacity: 1;
+        pointer-events: auto;
+}
+
+      #ac-close-btn , #ev-close-btn {
         background: #4caf50;
         color: #000;
         border: 1px solid #262;
@@ -94,111 +113,101 @@
         transition: background 0.3s;
       }
 
-      #tw-close-btn:hover {
+      #ac-close-btn:hover , #ev-close-btn:hover {
         background: #0b0;
         color: #fff;
       }
     </style>  
-
-    <button id="tw-panel-btn">活動内容</button>
-    <button id="yt-panel-btn">イベント情報</button>
-    <div id="tw-panel" >
+<!--ここまで-->
+    
+<!--要素そのもの-->
+    <button id="ac-panel-btn">活動内容</button>
+    <button id="ev-panel-btn">イベント情報</button>
+    <div id="ac-panel" >
       <p>ICPC 2025 YOKOHAMA</p>
 
-      <button id="tw-close-btn">閉じる</button>
+      <button id="ac-close-btn">閉じる</button>
     </div>
 
-    <script>
-    // パネルとパネル内のボタンを取得
-      const tw_panel = document.getElementById('tw-panel');
-      const tw_closeBtn = document.getElementById('tw-close-btn');
-      const tw_panelbtn = document.getElementById('tw-panel-btn');
-
-    // 「活動内容」ボタンがクリックされたら、パネルを表示/非表示にする
-      tw_panelbtn.onclick = function() {
-        if (tw_panel.style.display === 'block') {
-          tw_panel.style.display = 'none';
-        } else {
-          tw_panel.style.display = 'block';
-        }
-      };
-
-    // 「閉じる」ボタンがクリックされたら、パネル自体を非表示にする
-      tw_closeBtn.onclick = function() {
-        tw_panel.style.display = 'none';
-      };
-    </script>
-<!-- ここまで活動内容 -->
-<!--イベントのスタイルとスクリプト--> 
-    <style>
-      #yt-panel-btn {
-        background: #ccc;
-        color: #333;
-        padding: 12px 12px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 16px;
-        transition: background 0.3s;
-        margin-top: 16px;
-      }
-      #yt-panel-btn:hover {
-        background: #4caf50;
-        color: #fff;
-      }
-      #yt-panel {
-        display: none;
-        padding: 20px;
-        background: #e0ffe0;
-        border: 1px solid #b2ffb2;
-        border-radius: 4px;
-      }
-
-      #yt-close-btn{
-        background: #4caf50;
-        color: #000;
-        border: 1px solid #262;
-        padding: 6px 10px;
-        border: none;
-        border-radius: 3px;
-        cursor: pointer;
-        font-size: 12px;
-        transition: background 0.3s;
-      }
-
-      #yt-close-btn:hover {
-        background: #0b0;
-        color: #fff;
-        margin-top : 0 px;
-      }
-    </style>
-
-
-    <div id="yt-panel">
+    <div id="ev-panel">
       <p>六甲祭</p>
 
-      <button id="yt-close-btn">閉じる</button>
+      <button id="ev-close-btn">閉じる</button>
     </div>
-
+<!--パネル変換script-->
     <script>
-      const yt_btn = document.getElementById('yt-panel-btn');
-      const yt_panel = document.getElementById('yt-panel');
-      const yt_closebtn = document.getElementById('yt-close-btn');
+      window.onload = function(){
+        let nowPanel = 0; // 現在のパネル番号 
+        let panels = [
+          document.getElementById('backpanel'),
+          document.getElementById('ac-panel'),
+          document.getElementById('ev-panel')
+        ]; // パネル要素を配列に格納
+        let images = ["背景メイン.jpg","背景1.jpg","背景2.jpg"]; // 画像のパスを配列に格納
+        document.body.style.backgroundImage = `url("背景メイン.jpg")`; // 背景画像を設定
 
-      yt_btn.onclick = function() {
-          if (yt_panel.style.display === 'block') {
-              yt_panel.style.display = 'none';
-          } else {
-              yt_panel.style.display = 'block';
-          }
-      };
+      // パネルとパネル内のボタンを取得
+        const ac_closeBtn = document.getElementById('ac-close-btn');
+        const ac_panelbtn = document.getElementById('ac-panel-btn');
+        const ev_panelbtn = document.getElementById('ev-panel-btn');
+        const ev_closebtn = document.getElementById('ev-close-btn');
+
+      // 「活動内容」ボタンがクリックされたら、パネルを表示/非表示にする
+        ac_panelbtn.onclick = function() {
+          change_panel(1);
+          //console.log("nowPanel: " + nowPanel);
+        };
       // 「閉じる」ボタンがクリックされたら、パネル自体を非表示にする
-      yt_closebtn.onclick = function() {
-        yt_panel.style.display = 'none';
-      };
+        ac_closeBtn.onclick = function() {
+          change_panel(1);
+          //console.log("nowPanel: " + nowPanel);
+        };
+
+
+        ev_panelbtn.onclick = function() {
+          change_panel(2);
+          //console.log("nowPanel: " + nowPanel);
+        };
+        // 「閉じる」ボタンがクリックされたら、パネル自体を非表示にする
+        ev_closebtn.onclick = function() {
+          change_panel(2);
+          //console.log("nowPanel: " + nowPanel);
+        };
+        // パネルを切り替える関数
+        function change_panel(changeTo){
+          //今出てるパネルを消す
+          if (changeTo == nowPanel){
+            panels[nowPanel].classList.remove("show");
+            setTimeout(() => {
+              panels[nowPanel].style.display = "none"; // 0.5秒後に非表示にする
+              document.body.style.backgroundImage = `url(${images[0]})`; // 背景画像を変更
+              nowPanel = 0;
+              return;
+            },500);
+          }
+          //新しいパネルを出す
+          else if (nowPanel != 0){
+            panels[nowPanel].classList.remove("show");
+            setTimeout(() => {
+              panels[nowPanel].style.display = "none";
+              document.body.style.backgroundImage = `url(${images[changeTo]})`; // 背景画像を変更
+              panels[changeTo].style.display = "block";
+              setTimeout(() => {panels[changeTo].classList.add("show");},20);
+              nowPanel = changeTo;
+            },250)
+          }
+
+          else{  
+            document.body.style.backgroundImage = `url(${images[changeTo]})`; // 背景画像を変更
+            panels[changeTo].style.display = "block";
+            setTimeout(() => {panels[changeTo].classList.add("show");},20);
+            nowPanel = changeTo;
+          }
+
+          return;
+        }
+      }
     </script>
-<!-- ここまでイベント情報 -->
   </div>
 </body> 
-
 </html>
