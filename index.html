@@ -54,7 +54,7 @@
       </a>
     </div>
 
-<!--twitterのスタイルとスクリプト-->
+<!--活動内容のスタイルとスクリプト-->
     <style>
       #tw-panel-btn {
         background: #ccc;
@@ -109,7 +109,7 @@
       const tw_closeBtn = document.getElementById('tw-close-btn');
       const tw_panelbtn = document.getElementById('tw-panel-btn');
 
-    // 「twitterでの投稿」ボタンがクリックされたら、パネルを表示/非表示にする
+    // 「活動内容」ボタンがクリックされたら、パネルを表示/非表示にする
       tw_panelbtn.onclick = function() {
         if (tw_panel.style.display === 'block') {
           tw_panel.style.display = 'none';
@@ -166,21 +166,6 @@
         color: #fff;
         margin-top : 0 px;
       }
-
-      .video {
-    position: relative;
-    width: 100%;
-    padding-top: 56.25%; /* 16:9のアスペクト比 */
-    height: 0;
-      }
-      
-      .video iframe {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-      }
     </style>
 
     <div> 
@@ -208,7 +193,7 @@
         yt_panel.style.display = 'none';
       };
     </script>
-<!-- ここまでyoutube -->
+<!-- ここまでイベント情報 -->
   </div>
 </body> 
 
