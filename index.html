@@ -1,52 +1,18 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hello_Kobe</title>
 
-  <style> /*これは背景*/
-    html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    }
-    body {
-      background-size: cover;            /* ウィンドウに画像をフィット */
-      background-position: center 20%;       /* 画像を中央に配置 */
-      background-repeat: no-repeat;      /* 繰り返しなし */
-      background-attachment: fixed; /* スクロール時に背景を固定 */
-    } 
-    /*body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      background: url('背景メイン.jpg') center/cover no-repeat;
-      opacity: 1;
-      transition: opacity 0.7s;
-      pointer-events: none;
-    }*/
-  </style>
+  <!--これは背景-->
+  <link rel ="stylesheet" href="headStyle.css">
 </head>
 
 <body>
-
-
-  <style> /* これはバックパネル */
-    #backpanel{
-      background: rgba(255, 255, 255, 0.8); /* 半透明の白背景 */
-      padding: 20px; /* パディングを追加 */
-      border-radius: 10px; /* 角を丸くする */
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 軽い影を追加 */
-      /*max-width: 800px; /* 最大幅を設定 */
-      margin: auto; /* 中央に配置 */
-      width: 80%; /* 幅を90%に設定 */
-      height: auto; /* 高さを100%に設定 */
-      margin-top: 32px;
-      transition: opacity 0.7s;
-    }
-  </style>
+  <link rel ="stylesheet" href="backPanelStyle.css"> <!--これはバックパネル -->
   <div id ="backpanel">
       
     <h1>プログラミングサークル”Hello_Kobe”</h1>
@@ -65,62 +31,13 @@
     </div>
 
 <!--ボタンのスタイル-->
-    <style>
-      #ac-panel-btn, #ev-panel-btn {
-        background: #ccc;
-        color: #333;
-        padding: 12px 12px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 16px;
-        transition: background 0.3s;
-      }
-      #ac-panel-btn:hover , #ev-panel-btn:hover {
-        background: #4caf50;
-        color: #fff;
-      }
-
-      #ac-panel , #ev-panel { 
-        display : none; /* 初期状態では非表示 */
-        border: 1px solid #ccc; 
-        padding: 16px;
-        background: #e0ffe0;
-        border-radius: 4px;
-        opacity :0;
-        transition : opacity 0.5s;
-        pointer-events: none;
-      }
-
-      #ac-panel.show,
-      #ev-panel.show {
-        transition : opacity 0.5s;
-        opacity: 1;
-        pointer-events: auto;
-}
-
-      #ac-close-btn , #ev-close-btn {
-        background: #4caf50;
-        color: #000;
-        border: 1px solid #262;
-        padding: 6px 10px;
-        border: none;
-        border-radius: 3px;
-        cursor: pointer;
-        font-size: 12px;
-        transition: background 0.3s;
-      }
-
-      #ac-close-btn:hover , #ev-close-btn:hover {
-        background: #0b0;
-        color: #fff;
-      }
-    </style>  
+    <link rel="stylesheet" href="buttonStyle.css">
 <!--ここまで-->
     
 <!--要素そのもの-->
     <button id="ac-panel-btn">活動内容</button>
     <button id="ev-panel-btn">新歓情報</button>
+    <button id="game-panel-btn">ゲーム制作</button>
     <div id="ac-panel" >
       <p> <font size="5"> ICPC 2025 YOKOHAMA</font> </p>
       <p> 2025年に開催されるICPC世界大会の日本予選であるICPC国内予選に参加しました。<br>
@@ -136,80 +53,14 @@
 
       <button id="ev-close-btn">閉じる</button>
     </div>
+
+    <div id="game-panel">
+      <p> <font size="5">ゲーム制作</font> </p>
+      <p> Unityを用いた3Dゲーム制作に取り組んでいます。</p>
+      <button id="game-close-btn">閉じる</button>
+    </div>
 <!--パネル変換script-->
-    <script>
-      window.onload = function(){
-        let nowPanel = 0; // 現在のパネル番号 
-        let panels = [
-          document.getElementById('backpanel'),
-          document.getElementById('ac-panel'),
-          document.getElementById('ev-panel')
-        ]; // パネル要素を配列に格納
-        let images = ["背景メイン.jpg","背景1.jpg","背景2.jpg"]; // 画像のパスを配列に格納
-        document.body.style.backgroundImage = `url("背景メイン.jpg")`; // 背景画像を設定
-
-      // パネルとパネル内のボタンを取得
-        const ac_closeBtn = document.getElementById('ac-close-btn');
-        const ac_panelbtn = document.getElementById('ac-panel-btn');
-        const ev_panelbtn = document.getElementById('ev-panel-btn');
-        const ev_closebtn = document.getElementById('ev-close-btn');
-
-      // 「活動内容」ボタンがクリックされたら、パネルを表示/非表示にする
-        ac_panelbtn.onclick = function() {
-          change_panel(1);
-          //console.log("nowPanel: " + nowPanel);
-        };
-      // 「閉じる」ボタンがクリックされたら、パネル自体を非表示にする
-        ac_closeBtn.onclick = function() {
-          change_panel(1);
-          //console.log("nowPanel: " + nowPanel);
-        };
-
-
-        ev_panelbtn.onclick = function() {
-          change_panel(2);
-          //console.log("nowPanel: " + nowPanel);
-        };
-        // 「閉じる」ボタンがクリックされたら、パネル自体を非表示にする
-        ev_closebtn.onclick = function() {
-          change_panel(2);
-          //console.log("nowPanel: " + nowPanel);
-        };
-        // パネルを切り替える関数
-        function change_panel(changeTo){
-          //今出てるパネルを消す
-          if (changeTo == nowPanel){
-            panels[nowPanel].classList.remove("show");
-            setTimeout(() => {
-              panels[nowPanel].style.display = "none"; // 0.5秒後に非表示にする
-              document.body.style.backgroundImage = `url(${images[0]})`; // 背景画像を変更
-              nowPanel = 0;
-              return;
-            },500);
-          }
-          //新しいパネルを出す
-          else if (nowPanel != 0){
-            panels[nowPanel].classList.remove("show");
-            setTimeout(() => {
-              panels[nowPanel].style.display = "none";
-              document.body.style.backgroundImage = `url(${images[changeTo]})`; // 背景画像を変更
-              panels[changeTo].style.display = "block";
-              setTimeout(() => {panels[changeTo].classList.add("show");},20);
-              nowPanel = changeTo;
-            },250)
-          }
-
-          else{  
-            document.body.style.backgroundImage = `url(${images[changeTo]})`; // 背景画像を変更
-            panels[changeTo].style.display = "block";
-            setTimeout(() => {panels[changeTo].classList.add("show");},20);
-            nowPanel = changeTo;
-          }
-
-          return;
-        }
-      }
-    </script>
+    <script src="panelChange.js"></script>
   </div>
 </body> 
 </html>
