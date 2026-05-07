@@ -7,49 +7,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hello_Kobe</title>
 
-  <style> /*これは背景*/
-    html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    }
-    body {
-      font-family: 'Noto Sans JP', sans-serif;
-      background-size: cover;            /* ウィンドウに画像をフィット */
-      background-position: center 20%;       /* 画像を中央に配置 */
-      background-repeat: no-repeat;      /* 繰り返しなし */
-      background-attachment: fixed; /* スクロール時に背景を固定 */
-    } 
-    /*body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      background: url('背景メイン.jpg') center/cover no-repeat;
-      opacity: 1;
-      transition: opacity 0.7s;
-      pointer-events: none;
-    }*/
-  </style>
+  <!--これは背景-->
+  <link rel ="stylesheet" href="headStyle.css">
 </head>
 
 <body>
-
-
-  <style> /* これはバックパネル */
-    #backpanel{
-      background: rgba(255, 255, 255, 0.8); /* 半透明の白背景 */
-      padding: 20px; /* パディングを追加 */
-      border-radius: 10px; /* 角を丸くする */
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 軽い影を追加 */
-      /*max-width: 800px; /* 最大幅を設定 */
-      margin: auto; /* 中央に配置 */
-      width: 80%; /* 幅を90%に設定 */
-      height: auto; /* 高さを100%に設定 */
-      margin-top: 32px;
-      transition: opacity 0.7s;
-    }
-  </style>
+  <link rel ="stylesheet" href="backPanelStyle.css"> <!--これはバックパネル -->
   <div id ="backpanel">
       
     <h1>プログラミングサークル”Hello_Kobe”</h1>
@@ -68,57 +31,7 @@
     </div>
 
 <!--ボタンのスタイル-->
-    <style>
-      #ac-panel-btn, #ev-panel-btn {
-        background: #ccc;
-        color: #333;
-        padding: 12px 12px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 16px;
-        transition: background 0.3s;
-      }
-      #ac-panel-btn:hover , #ev-panel-btn:hover {
-        background: #4caf50;
-        color: #fff;
-      }
-
-      #ac-panel , #ev-panel { 
-        display : none; /* 初期状態では非表示 */
-        border: 1px solid #ccc; 
-        padding: 16px;
-        background: #e0ffe0;
-        border-radius: 4px;
-        opacity :0;
-        transition : opacity 0.5s;
-        pointer-events: none;
-      }
-
-      #ac-panel.show,
-      #ev-panel.show {
-        transition : opacity 0.5s;
-        opacity: 1;
-        pointer-events: auto;
-}
-
-      #ac-close-btn , #ev-close-btn {
-        background: #4caf50;
-        color: #000;
-        border: 1px solid #262;
-        padding: 6px 10px;
-        border: none;
-        border-radius: 3px;
-        cursor: pointer;
-        font-size: 12px;
-        transition: background 0.3s;
-      }
-
-      #ac-close-btn:hover , #ev-close-btn:hover {
-        background: #0b0;
-        color: #fff;
-      }
-    </style>  
+    <link rel="stylesheet" href="buttonStyle.css">
 <!--ここまで-->
     
 <!--要素そのもの-->
